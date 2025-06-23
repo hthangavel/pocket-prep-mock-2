@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6750A4">
+    <title>EduCourse - Login</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkVkdUNvdXJzZSAtIENvdXJzZSBFbnJvbGxtZW50IiwKICAic2hvcnRfbmFtZSI6ICJFZHVDb3Vyc2UiLAogICJkZXNjcmlwdGlvbiI6ICJFbnJvbGwgaW4gY291cnNlcyBhbmQgdHJhY2sgeW91ciBsZWFybmluZyBwcm9ncmVzcyIsCiAgInN0YXJ0X3VybCI6ICIvIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjRkVGN0ZGIiwKICAidGhlbWVfY29sb3IiOiAiIzY3NTBBNCIKFQ==">
+    
+    <!-- Material Design Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005D;
+            --md-sys-color-secondary: #625B71;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #E8DEF8;
+            --md-sys-color-on-secondary-container: #1D192B;
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-on-surface: #1C1B1F;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-error: #BA1A1A;
+            --md-sys-color-on-error: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, var(--md-sys-color-primary-container), var(--md-sys-color-surface));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .login-container {
+            background: var(--md-sys-color-surface);
+            border-radius: 28px;
+            padding: 40px 24px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 6px 30px rgba(103, 80, 164, 0.15);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--md-sys-color-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(103, 80, 164, 0.3);
+        }
+
+        .logo-icon .material-icons {
+            font-size: 40px;
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .app-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--md-sys-color-primary);
+            margin-bottom: 8px;
+        }
+
+        .app-subtitle {
+            font-size: 16px;
+            color: var(--md-sys-color-on-surface-variant);
+            font-weight: 400;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--md-sys-color-outline);
+            border-radius: 12px;
+            font-size: 16px;
+            background: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+            box-shadow: 0 0 0 3px rgba(103, 80, 164, 0.12);
+        }
+
+        .input-field:focus + .input-label,
+        .input-field:not(:placeholder-shown) + .input-label {
+            transform: translateY(-28px) scale(0.85);
+            color: var(--md-sys-color-primary);
+        }
+
+        .input-label {
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            background: var(--md-sys-color-surface);
+            padding: 0 4px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Roboto', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(103, 80, 164, 0.3);
+        }
+
+        .login-button:hover {
+            background: #5A42A0;
+            box-shadow: 0 4px 12px rgba(103, 80, 164, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button.loading {
+            position: relative;
+            color: transparent;
+        }
+
+        .login-button.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--md-sys-color-on-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .forgot-password a {
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 14px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--md-sys-color-outline);
+        }
+
+        .divider span {
+            padding: 0 16px;
+        }
+
+        .signup-link {
+            text-align: center;
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 14px;
+        }
+
+        .signup-link a {
+            color: var(--md-sys-color-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .demo-credentials {
+            background: var(--md-sys-color-secondary-container);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: var(--md-sys-color-on-secondary-container);
+        }
+
+        .demo-credentials strong {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--md-sys-color-secondary);
+        }
+
+        /* PWA Install Banner */
+        .install-banner {
+            position: fixed;
+            bottom: 16px;
+            left: 16px;
+            right: 16px;
+            background: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 12px 16px;
+            border-radius: 12px;
+            display: none;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+
+        .install-banner.show {
+            display: flex;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .install-banner-text {
+            flex: 1;
+            font-size: 14px;
+            margin-right: 12px;
+        }
+
+        .install-banner button {
+            background: transparent;
+            border: 1px solid var(--md-sys-color-on-primary);
+            color: var(--md-sys-color-on-primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 20px;
+                margin: 0;
+                border-radius: 0;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <div class="logo-icon">
+                <span class="material-icons">school</span>
+            </div>
+            <div class="app-title">EduCourse</div>
+            <div class="app-subtitle">Learn. Grow. Succeed.</div>
+        </div>
+
+        <div class="demo-credentials">
+            <strong>Demo Credentials:</strong>
+            Email: demo@educourse.com<br>
+            Password: demo123
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="email" id="email" class="input-field" placeholder=" " required>
+                <label for="email" class="input-label">Email Address</label>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" class="input-field" placeholder=" " required>
+                <label for="password" class="input-label">Password</label>
+            </div>
+
+            <button type="submit" class="login-button" id="loginBtn">
+                Sign In
+            </button>
+        </form>
+
+        <div class="forgot-password">
+            <a href="#" id="forgotPassword">Forgot Password?</a>
+        </div>
+
+        <div class="divider">
+            <span>or</span>
+        </div>
+
+        <div class="signup-link">
+            Don't have an account? <a href="#" id="signupLink">Sign Up</a>
+        </div>
+    </div>
+
+    <!-- PWA Install Banner -->
+    <div class="install-banner" id="installBanner">
+        <div class="install-banner-text">
+            Install EduCourse for quick access and offline features
+        </div>
+        <button id="installBtn">Install</button>
+        <button id="dismissBtn">Dismiss</button>
+    </div>
+
+    <script>
+        // PWA Install functionality
+        let deferredInstallPrompt = null;
+        const installBanner = document.getElementById('installBanner');
+        const installBtn = document.getElementById('installBtn');
+        const dismissBtn = document.getElementById('dismissBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+            installBanner.classList.add('show');
+        });
+
+        installBtn.addEventListener('click', () => {
+            if (deferredInstallPrompt) {
+                deferredInstallPrompt.prompt();
+                deferredInstallPrompt.userChoice.then((choiceResult) => {
+                    deferredInstallPrompt = null;
+                    installBanner.classList.remove('show');
+                });
+            }
+        });
+
+        dismissBtn.addEventListener('click', () => {
+            installBanner.classList.remove('show');
+        });
+
+        // Login form functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const loginBtn = document.getElementById('loginBtn');
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // Add loading state
+            loginBtn.classList.add('loading');
+            
+            // Demo login logic
+            setTimeout(() => {
+                if (email === 'demo@educourse.com' && password === 'demo123') {
+                    alert('Login successful! 🎉\n\nWelcome to EduCourse!\nThis would redirect to the dashboard in a real app.');
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userEmail', email);
+                } else {
+                    alert('Invalid credentials. Please use the demo credentials provided.');
+                }
+                loginBtn.classList.remove('loading');
+            }, 1500);
+        });
+
+        // Demo link handlers
+        document.getElementById('forgotPassword').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Password reset functionality would be implemented here.\n\nFor demo purposes, use: demo@educourse.com / demo123');
+        });
+
+        document.getElementById('signupLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Sign up functionality would be implemented here.\n\nFor demo purposes, use: demo@educourse.com / demo123');
+        });
+
+        // Register service worker for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // For demo purposes, we'll skip the actual service worker registration
+                console.log('Service Worker would be registered here for full PWA functionality');
+            });
+        }
+
+        // Add to home screen detection
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA was installed successfully');
+            installBanner.classList.remove('show');
+        });
+
+        // Handle iOS Safari add to home screen
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isStandalone = window.navigator.standalone;
+
+        if (isIOS && !isStandalone) {
+            setTimeout(() => {
+                if (!localStorage.getItem('iosInstallDismissed')) {
+                    alert('To install this app on your iOS device:\n\n1. Tap the Share button below\n2. Select "Add to Home Screen"\n3. Tap "Add" to install');
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
