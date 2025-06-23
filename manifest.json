@@ -2,7 +2,7 @@
   "name": "EduCourse - Course Enrollment",
   "short_name": "EduCourse",
   "description": "Enroll in courses and track your learning progress",
-  "start_url": "/",
+  "start_url": "/pocket-prep-mock-2/",
   "display": "standalone",
   "background_color": "#FEF7FF",
   "theme_color": "#6750A4",
